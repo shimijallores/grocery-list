@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Grocery List</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body
+    class="bg-gray-100 text-black min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md">
+      <!-- Card -->
+      <div class="rounded-lg border border-gray-300 bg-white shadow-md">
+        <div class="p-6">
+          <h1 class="text-2xl font-bold mb-6 text-center">Grocery List</h1>
+
+          <!-- Form -->
+          <form method="POST" class="space-y-4">
+            {% csrf_token %}
+
+            <div class="space-y-3">
+              <!-- Name -->
+              <label class="text-sm font-medium">Item name</label>
+              <input
+                type="text"
+                name="name"
+                required
+                class="flex h-10 w-full rounded-md border border-gray-400 bg-gray-50 px-3 py-2 text-sm placeholder-gray-500 focus:border-black focus:ring-1 focus:ring-black focus:outline-none" />
+
+              <!-- Quantity -->
+              <label class="text-sm font-medium">Quantity</label>
+              <input
+                type="number"
+                name="quantity"
+                required
+                min="1"
+                class="flex h-10 w-full rounded-md border border-gray-400 bg-gray-50 px-3 py-2 text-sm placeholder-gray-500 focus:border-black focus:ring-1 focus:ring-black focus:outline-none" />
+
+              <!-- Purchased -->
+              <div class="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="is_purchased"
+                  id="is_purchased"
+                  class="h-4 w-4 border-gray-400 rounded-sm text-black focus:ring-black" />
+                <label for="is_purchased" class="text-sm font-medium"
+                  >Purchase</label
+                >
+              </div>
+            </div>
+
+            <!-- Submit button -->
+            <button
+              type="submit"
+              class="w-full h-10 px-4 py-2 rounded-md font-medium bg-black text-white hover:bg-neutral-900 focus:ring-2 focus:ring-black focus:outline-none transition">
+              Add Item
+            </button>
+          </form>
+
+          <!-- Items -->
+          <h2 class="text-lg font-semibold mt-8 mb-3">Current Items</h2>
+          <ul class="space-y-2">
+            {% for item in items %}
+            <li
+              class="flex justify-between items-center rounded-md border border-gray-300 bg-gray-50 px-3 py-2">
+              <span class="font-medium">
+                {% if item.is_purchased %}
+                <span class="line-through text-gray-500">{{ item.name }}</span>
+                {% else %} {{ item.name }} {% endif %}
+              </span>
+              <span class="text-gray-600">x{{ item.quantity }}</span>
+            </li>
+            {% empty %}
+            <li class="text-sm text-gray-500">No items yet. Add one above.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
