@@ -4,9 +4,8 @@ A simple **Grocery Listing System** built with Django as a requirement for **App
 
 ## Features
 
-- Add, update, and delete grocery items
-- Organize and track your grocery list
-- Simple, clean interface using Django
+- Add and view grocery items
+- Simple, clean interface using tailwind
 
 ### Home Page
 
